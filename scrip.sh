@@ -20,8 +20,10 @@ while [[ $control == "100" ]]; do
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 		#Monta el volumen
 		rsh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
-		
-
+		#Añadimos regla IPTables en la maquina virtual para que acepte peticiones de fuera de su red virutal y devuelva la peticion
+		rsh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.1.1/24 -o eth0 -j MASQUERADE
+		#Añadimos regla IPTable en la maquina Anfitriona para que pueda saber donde mandar la peticion
+		iptables -t nat -A PREROUTING -i virbr1 -p tcp --dport 80 -j DNAT --to $ip
 	fi
 done
 
