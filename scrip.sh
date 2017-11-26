@@ -51,7 +51,7 @@ while [[ $bucle != "salir" ]]; do
 			rsh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.1.1/24 -o eth0 -j MASQUERADE
 			
 			echo "Añadimos regla IPTable en la maquina Anfitriona para que pueda saber donde mandar la peticion"
-			iptables -t nat -A PREROUTING -i virbr1 -p tcp --dport 80 -j DNAT --to "$ip"
+			iptables -t nat -A PREROUTING -i virbr1 -p tcp --dport 80 -j DNAT --to $ip
 			
 			echo "Salimos del Bucle while"
 			bucle="salir"
