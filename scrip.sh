@@ -64,9 +64,9 @@ while [[ $bucle != "salir" ]]; do
 		
 		echo "Obtiene la ip de la maquina"
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
-		
+		sleep 5
 		echo $ip
-
+		sleep 15
 		echo "Monta el volumen"
 		rsh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
 		
