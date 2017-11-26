@@ -17,7 +17,9 @@ while [[ $bucle != "salir" ]]; do
 		
 		if [[ $control == "100" ]]
 		then
-			
+			virsh -c qemu://session detach-disk debian8-1 /dev/disco/lv1
+			lvresize -L +10M /dev/disco/lv1 
+
 
 	else
 		#Iniciamos la maquina, esperamos 5 segundos y asociamos el volumen a la maquina
