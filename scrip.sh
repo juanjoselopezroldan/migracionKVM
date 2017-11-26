@@ -8,7 +8,7 @@ while [[ $bucle != "salir" ]]; do
 	estadomq=$(virsh list --all | egrep "debian8-1" | tr -s " " | cut -d " " -f 4)
 
 	echo "Este IF hace referencia a la comprobacion del estado de la maquina si esta levantada comprueba su estado pero si no esta, procede a iniciarla"
-	if [[ $estadomq == "running" ]];
+	if [[ $estadomq == "running" ]]
 	then
 		echo "Obtiene la informacion de la ocupacion de procesamiento en la maquina anfitriona"
 		control=$(ps aux | egrep libvirt+ | tr -s " " | cut -d " " -f 4 | sort -r | head -1 )
