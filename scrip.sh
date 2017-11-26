@@ -8,7 +8,7 @@ while [[ $bucle != "salir" ]]; do
 	estadomq=$(virsh list --all | egrep "debian8-1" | tr -s " " | cut -d " " -f 4)
 
 	echo "Este IF hace referencia a la comprobacion del estado de la maquina si esta levantada comprueba su estado pero si no esta, procede a iniciarla"
-	if [[ $estadomq == "running" ]]
+	if [[ $estadomq == "running" ]];
 	then
 		echo "Obtiene la informacion de la ocupacion de procesamiento en la maquina anfitriona"
 		control=$(ps aux | egrep libvirt+ | tr -s " " | cut -d " " -f 4 | sort -r | head -1 )
@@ -17,7 +17,7 @@ while [[ $bucle != "salir" ]]; do
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 		
 		echo "Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM"
-		if [[ $control == "7.0" ]]
+		if [[ $control == "7.0" ]];
 		then
 			echo "Iniciamos la segunda maquina virtual "
 			virsh -c qemu:///system start debian8-2
@@ -55,6 +55,7 @@ while [[ $bucle != "salir" ]]; do
 			
 			echo "Salimos del Bucle while"
 			bucle="salir"
+		fi
 	else
 		echo "Iniciamos la maquina, esperamos 5 segundos y asociamos el volumen a la maquina"
 		virsh -c qemu:///system start debian8-1
@@ -75,4 +76,5 @@ while [[ $bucle != "salir" ]]; do
 		
 		echo "En este punto podremos comprobar en el navegador como podemos acceder a la pagina si tenemos en el volumen algun index.html (recordad que el Apache tiene que esta configurado previamente)"
 	fi
+
 done
