@@ -77,17 +77,17 @@ while [[ $bucle != "salir" ]]; do
 	fi
 done
 
-bucle2="salir"
+# bucle2="salir"
 
-while [[ $bucle2 == "salir" ]]; do
+# while [[ $bucle2 == "salir" ]]; do
 	
-	#Obtiene la informacion de la ocupacion de procesamiento en la maquina anfitriona
-	control=$(ps aux | egrep libvirt+ | tr -s " " | cut -d " " -f 4 | sort -r | head -1 )
+# 	#Obtiene la informacion de la ocupacion de procesamiento en la maquina anfitriona
+# 	control=$(ps aux | egrep libvirt+ | tr -s " " | cut -d " " -f 4 | sort -r | head -1 )
 	
-	if [[ $control == "7.0" ]]; then
+# 	if [[ $control == "7.0" ]]; then
 		
-	fi
-done
+# 	fi
+# done
 
 echo $control
 echo $ip
