@@ -88,6 +88,3 @@ done
 		
 # 	fi
 # done
-
-echo $control
-echo $ip
