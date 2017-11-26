@@ -64,7 +64,7 @@ while [[ $bucle != "salir" ]]; do
 		
 		echo "Obtiene la ip de la maquina"
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
-		sleep 5
+		sleep 10
 		echo $ip
 		sleep 15
 		echo "Monta el volumen"
