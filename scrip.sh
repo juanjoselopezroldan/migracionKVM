@@ -7,3 +7,6 @@ ip1=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1
 #while [[  ]]; do
 	#statements
 #done
+
+echo $control
+echo $ip1
