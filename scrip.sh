@@ -7,6 +7,7 @@ while [[ $bucle != "salir" ]]; do
 	#Obtiene la informacion del estado de la maquina
 	estadomq=$(virsh list --all | egrep "debian8-1" | tr -s " " | cut -d " " -f 4)
 
+	#Este IF hace referencia a la comprobacion del estado de la maquina si esta levantada comprueba su estado pero si no esta, procede a iniciarla
 	if [[ $estadomq == "running" ]] 
 	then
 		#Obtiene la informacion de la ocupacion de procesamiento en la maquina anfitriona
@@ -15,10 +16,32 @@ while [[ $bucle != "salir" ]]; do
 		#Obtiene la ip de la maquina si esta en ejecucion
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 		
+		#Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM
 		if [[ $control == "100" ]]
 		then
+			#Iniciamos la segunda maquina virtual 
+			virsh -c qemu:///system start debian8-2
+
+			#Desasociamos el volumen de la maquina primera y la apagamos
 			virsh -c qemu://session detach-disk debian8-1 /dev/disco/lv1
-			lvresize -L +10M /dev/disco/lv1 
+			virsh -c qemu:///system shutdown debian8-1
+
+			#Redimensionamos la particion
+			lvresize -L +10M /dev/disco/lv1
+
+			#Montamos el volumen para redimensionar el sistema de archivos
+			mount /dev/disco/lv1 /mnt/
+
+			#Redimensionamos el sistema de ficheros
+			xfs_growfs /dev/disco/lv1 
+
+			#Desmontamos el volumen del directorio temporal
+			umount /mnt/
+			
+			#Asociamos el volumen a la otra maquina
+			virsh -c qemu://session attach-disk debian8-1 /dev/disco/lv1 vda
+
+
 
 
 	else
