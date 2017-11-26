@@ -39,7 +39,7 @@ while [[ $bucle != "salir" ]]; do
 			umount /mnt/
 
 			#Asociamos el volumen a la otra maquina
-			virsh -c qemu://session attach-disk debian8-1 /dev/disco/lv1 vda
+			virsh -c qemu://session attach-disk debian8-2 /dev/disco/lv1 vda
 
 			#Obtiene la ip de la maquina que esta en ejecucion
 			ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
