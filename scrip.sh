@@ -1,5 +1,7 @@
 #!/bin/bash
 
+control="0"
+
 while [[ $control == "100" ]]; do
 	#Obtiene la informacion del estado de la maquina de cara al proceso
 	control=$(ps aux | egrep libvirt+ | tr -s " " | cut -d " " -f 4 | sort -r | head -1 )
