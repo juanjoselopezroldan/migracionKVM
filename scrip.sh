@@ -62,9 +62,9 @@ while [[ $bucle != "salir" ]]; do
 		sleep 5
 		virsh -c qemu:///session attach-disk debian8-1 /dev/disco/lv1 vda
 		
-		echo "Obtiene la ip de la maquina"
+		echo "Obteniendo la ip de la maquina"
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
-		sleep 10
+		sleep 15
 		echo $ip
 		sleep 15
 		echo "Monta el volumen"
