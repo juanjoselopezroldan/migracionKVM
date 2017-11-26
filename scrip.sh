@@ -17,7 +17,7 @@ while [[ $bucle != "salir" ]]; do
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 		
 		echo "Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM"
-		if [[ $control == "7.0" ]];
+		if [[ $control == "7.0" ]]
 		then
 			echo "Iniciamos la segunda maquina virtual "
 			virsh -c qemu:///system start debian8-2
@@ -76,15 +76,3 @@ while [[ $bucle != "salir" ]]; do
 		echo "En este punto podremos comprobar en el navegador como podemos acceder a la pagina si tenemos en el volumen algun index.html (recordad que el Apache tiene que esta configurado previamente)"
 	fi
 done
-
-# bucle2="salir"
-
-# while [[ $bucle2 == "salir" ]]; do
-	
-# 	#Obtiene la informacion de la ocupacion de procesamiento en la maquina anfitriona
-# 	control=$(ps aux | egrep libvirt+ | tr -s " " | cut -d " " -f 4 | sort -r | head -1 )
-	
-# 	if [[ $control == "7.0" ]]; then
-		
-# 	fi
-# done
