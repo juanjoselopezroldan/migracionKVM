@@ -17,7 +17,7 @@ while [[ $bucle != "salir" ]]; do
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 		
 		echo "Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM"
-		if [[ '$control' == "7.0" ]];
+		if [[ $control == "7.0" ]];
 		then
 			echo "Iniciamos la segunda maquina virtual "
 			virsh -c qemu:///system start debian8-2
