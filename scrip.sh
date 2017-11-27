@@ -62,6 +62,7 @@ while [[ $bucle != "salir" ]]; do
 			
 			#Salimos del Bucle while
 			bucle="salir"
+			echo "Maquina 2 operativa"
 		fi
 	else
 		echo "Levantamos la maquina por estar inactiva"
@@ -105,5 +106,5 @@ while [[ $bucle != "salir" ]]; do
 		virsh setmem debian8-2 2G --live
 		bucle="salir"		
 	fi
-	sleep 10
+	sleep 5
 done
