@@ -83,5 +83,5 @@ while [[ $bucle != "salir" ]]; do
 		
 		#En este punto podremos comprobar en el navegador como podemos acceder a la pagina si tenemos en el volumen algun index.html (recordad que el Apache tiene que esta configurado previamente)
 	fi
-
+	sleep 10
 done
