@@ -10,11 +10,11 @@ while [[ $bucle != "salir" ]]; do
 	#Este IF hace referencia a la comprobacion del estado de la maquina si esta levantada comprueba su estado pero si no esta, procede a iniciarla
 	if [[ $estadomq == "running" ]];
 	then
-		#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
-		control=$(ssh -i /home/kiki/.ssh/cloud.key root@192.168.0.233  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
-
 		#Obtiene la ip de la maquina si esta en ejecucion
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
+
+		#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
+		control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
 		
 		#Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM
 		if [[ $control -le "10" ]];
@@ -86,7 +86,7 @@ while [[ $bucle != "salir" ]]; do
 	sleep 10
 done
 
-#
+#Una vez realizada la migracion correctamente, 
 bucle="seguir"
 while [[ $bucle != "salir" ]]; do
 	#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
