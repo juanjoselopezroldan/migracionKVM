@@ -46,10 +46,10 @@ while [[ $bucle != "salir" ]]; do
 			ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 		
 			echo "Monta el volumen"
-			rsh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
+			ssh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
 		
 			echo "Añadimos regla IPTables en la maquina virtual para que acepte peticiones de fuera de su red virutal y devuelva la peticion"
-			rsh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.1.1/24 -o eth0 -j MASQUERADE
+			ssh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.1.1/24 -o eth0 -j MASQUERADE
 			
 			echo "Añadimos regla IPTable en la maquina Anfitriona para que pueda saber donde mandar la peticion"
 			iptables -t nat -A PREROUTING -i virbr1 -p tcp --dport 80 -j DNAT --to $ip
@@ -70,10 +70,10 @@ while [[ $bucle != "salir" ]]; do
 		echo $ip
 		sleep 15
 		echo "Monta el volumen"
-		rsh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
+		ssh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
 		
 		echo "Añadimos regla IPTables en la maquina virtual para que acepte peticiones de fuera de su red virutal y devuelva la peticion"
-		rsh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.2.0/24 -o eth0 -j MASQUERADE
+		ssh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.2.0/24 -o eth0 -j MASQUERADE
 		
 		echo "Añadimos regla IPTable en la maquina Anfitriona para que pueda saber donde mandar la peticion"
 		iptables -t nat -A PREROUTING -i virbr1 -p tcp --dport 80 -j DNAT --to $ip
