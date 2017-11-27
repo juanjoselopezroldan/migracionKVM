@@ -86,17 +86,14 @@ while [[ $bucle != "salir" ]]; do
 	sleep 10
 done
 
+#
 bucle="seguir"
-#virsh setmem debian8-2 1G --live
-
 while [[ $bucle != "salir" ]]; do
 	#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
 	control=$(ssh -i /home/kiki/.ssh/cloud.key root@192.168.0.233  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
 
 	if [[ $control -le "10" ]]; then
-		
+		virsh setmem debian8-2 1G --live
+		bucle="seguir"		
 	fi
-
-
-
 done
