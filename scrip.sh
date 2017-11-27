@@ -96,7 +96,7 @@ while [[ $bucle != "salir" ]]; do
 	#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
 	control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
 	echo $control
-	if [[ $control -le "10" ]]; then
+	if [[ $control -le "50" ]]; then
 		virsh setmem debian8-2 2G --live
 		bucle="salir"		
 	fi
