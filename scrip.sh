@@ -11,13 +11,13 @@ while [[ $bucle != "salir" ]]; do
 	if [[ $estadomq == "running" ]];
 	then
 		echo "Obtiene la informacion de la ocupacion de procesamiento en la maquina anfitriona"
-		control=$(ps aux | egrep libvirt+ | tr -s " " | cut -d " " -f 4 | sort -r | head -1 )
-		
+		control=$(ssh -i /home/kiki/.ssh/cloud.key root@192.168.0.233  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
+
 		echo "Obtiene la ip de la maquina si esta en ejecucion"
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 		
 		echo "Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM"
-		if [[ $control == "7.0" ]];
+		if [[ $control -le "10" ]];
 		then
 			echo "Iniciamos la segunda maquina virtual "
 			virsh -c qemu:///system start debian8-2
