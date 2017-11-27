@@ -43,7 +43,7 @@ while [[ $bucle != "salir" ]]; do
 			#Asociamos el volumen a la otra maquina
 			virsh -c qemu:///session attach-disk debian8-2 /dev/disco/lv1 vda
 
-			sleep 25
+			sleep 15
 			echo "Obtiene la ip de la segunda maquina"
 			ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 			echo $ip
