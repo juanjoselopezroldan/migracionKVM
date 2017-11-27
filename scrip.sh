@@ -88,13 +88,14 @@ done
 
 #Obtiene la ip de la maquina si esta en ejecucion
 ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
+echo "Control sobre la maquina: $ip"
 
 #Una vez realizada la migracion correctamente, 
 bucle="seguir"
 while [[ $bucle != "salir" ]]; do
 	#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
 	control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
-
+	echo $control
 	if [[ $control -le "10" ]]; then
 		virsh setmem debian8-2 2G --live
 		bucle="salir"		
