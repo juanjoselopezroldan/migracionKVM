@@ -85,3 +85,10 @@ while [[ $bucle != "salir" ]]; do
 	fi
 	sleep 10
 done
+
+bucle="seguir"
+#virsh setmem debian8-2 1G --live
+
+while [[ $bucle != "salir" ]]; do
+
+done
