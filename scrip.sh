@@ -46,6 +46,7 @@ while [[ $bucle != "salir" ]]; do
 			sleep 25
 			echo "Obtiene la ip de la segunda maquina"
 			ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
+			echo $ip
 		
 			#Monta el volumen
 			ssh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
