@@ -96,7 +96,8 @@ while [[ $bucle != "salir" ]]; do
 	control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
 
 	if [[ $control -le "10" ]]; then
-		virsh setmem debian8-2 1G --live
-		bucle="seguir"		
+		virsh setmem debian8-2 2G --live
+		bucle="salir"		
 	fi
+	sleep 10
 done
