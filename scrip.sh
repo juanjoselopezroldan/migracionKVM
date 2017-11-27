@@ -19,15 +19,17 @@ while [[ $bucle != "salir" ]]; do
 		#Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM
 		if [[ $control -le "10" ]];
 		then
+			echo "Maquina 1 colapsada, inicio de maquina 2 y apagado de la maquina 1"
 			#Iniciamos la segunda maquina virtual
 			virsh -c qemu:///system start debian8-2
 
+			echo "Desasociamos volumen de la maquina 1"
 			#Desasociamos el volumen de la maquina primera y la apagamos
 			virsh -c qemu:///session detach-disk debian8-1 /dev/disco/lv1
 			virsh -c qemu:///system shutdown debian8-1
 
 			sleep 10
-
+			echo "Redimensionado de Disco"
 			#Redimensionamos la particion
 			lvresize -L +10M /dev/disco/lv1
 
@@ -41,6 +43,7 @@ while [[ $bucle != "salir" ]]; do
 			umount /mnt/
 
 			#Asociamos el volumen a la otra maquina
+			echo "Asociamos volumen a maquina 2"
 			virsh -c qemu:///session attach-disk debian8-2 /dev/disco/lv1 vda
 
 			sleep 15
