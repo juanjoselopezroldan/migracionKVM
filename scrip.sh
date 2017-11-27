@@ -28,7 +28,7 @@ while [[ $bucle != "salir" ]]; do
 			virsh -c qemu:///session detach-disk debian8-1 /dev/disco/lv1
 			virsh -c qemu:///system shutdown debian8-1
 
-			sleep 10
+			sleep 20
 			echo "Redimensionado de Disco"
 			#Redimensionamos la particion
 			lvresize -L +10M /dev/disco/lv1
