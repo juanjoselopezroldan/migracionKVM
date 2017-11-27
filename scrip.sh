@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "Iniciando"
 bucle="seguir"
 
 while [[ $bucle != "salir" ]]; do
@@ -61,6 +61,7 @@ while [[ $bucle != "salir" ]]; do
 			bucle="salir"
 		fi
 	else
+		echo "Levantamos la maquina por estar inactiva"
 		#Iniciamos la maquina, esperamos 5 segundos y asociamos el volumen a la maquina
 		virsh -c qemu:///system start debian8-1
 		sleep 5
@@ -82,6 +83,7 @@ while [[ $bucle != "salir" ]]; do
 		iptables -t nat -A PREROUTING -i virbr1 -p tcp --dport 80 -j DNAT --to $ip
 		
 		#En este punto podremos comprobar en el navegador como podemos acceder a la pagina si tenemos en el volumen algun index.html (recordad que el Apache tiene que esta configurado previamente)
+		echo "Maquina 1 operativa"
 	fi
 	sleep 10
 done
