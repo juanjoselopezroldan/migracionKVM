@@ -19,11 +19,11 @@ while [[ $bucle != "salir" ]]; do
 		#Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM
 		if [[ $control -le "10" ]];
 		then
-			echo "Maquina 1 colapsada, inicio de maquina 2 y apagado de la maquina 1"
+			echo "Maquina 1 colapsada, inicio de maquina 2"
 			#Iniciamos la segunda maquina virtual
 			virsh -c qemu:///system start debian8-2
 
-			echo "Desasociamos volumen de la maquina 1"
+			echo "Desasociamos volumen de la maquina 1 y se realiza el apagado"
 			#Desasociamos el volumen de la maquina primera y la apagamos
 			virsh -c qemu:///session detach-disk debian8-1 /dev/disco/lv1
 			virsh -c qemu:///system shutdown debian8-1
