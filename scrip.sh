@@ -26,6 +26,8 @@ while [[ $bucle != "salir" ]]; do
 			virsh -c qemu:///session detach-disk debian8-1 /dev/disco/lv1
 			virsh -c qemu:///system shutdown debian8-1
 
+			sleep 10
+
 			echo "Redimensionamos la particion"
 			lvresize -L +10M /dev/disco/lv1
 
@@ -41,7 +43,7 @@ while [[ $bucle != "salir" ]]; do
 			echo "Asociamos el volumen a la otra maquina"
 			virsh -c qemu:///session attach-disk debian8-2 /dev/disco/lv1 vda
 
-			sleep 15
+			sleep 25
 			echo "Obtiene la ip de la maquina que esta en ejecucion"
 			ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 		
