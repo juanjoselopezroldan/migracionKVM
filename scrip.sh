@@ -10,7 +10,7 @@ while [[ $bucle != "salir" ]]; do
 	#Este IF hace referencia a la comprobacion del estado de la maquina si esta levantada comprueba su estado pero si no esta, procede a iniciarla
 	if [[ $estadomq == "running" ]];
 	then
-		#Obtiene la informacion de la ocupacion de procesamiento en la maquina anfitriona
+		#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
 		control=$(ssh -i /home/kiki/.ssh/cloud.key root@192.168.0.233  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
 
 		#Obtiene la ip de la maquina si esta en ejecucion
@@ -90,5 +90,11 @@ bucle="seguir"
 #virsh setmem debian8-2 1G --live
 
 while [[ $bucle != "salir" ]]; do
+	#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
+	control=$(ssh -i /home/kiki/.ssh/cloud.key root@192.168.0.233  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
+
+	
+
+
 
 done
