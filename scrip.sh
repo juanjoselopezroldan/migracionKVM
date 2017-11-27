@@ -103,8 +103,10 @@ while [[ $bucle != "salir" ]]; do
 	control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
 	echo $control
 	if [[ $control -le "50" ]]; then
+		echo "Aumentando Memoria Ram a 2G"
 		virsh setmem debian8-2 2G --live
 		bucle="salir"		
 	fi
 	sleep 5
 done
+echo "Maquina 2 operativa con aumento de memoria Ram"
