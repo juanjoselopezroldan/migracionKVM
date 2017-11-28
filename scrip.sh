@@ -111,4 +111,4 @@ while [[ $bucle != "salir" ]]; do
 	fi
 	sleep 5
 done
-echo "Maquina 2 operativa con aumento de memoria Ram"
+echo "Maquina 2 operativa con aumento de memoria Ram incluido"
