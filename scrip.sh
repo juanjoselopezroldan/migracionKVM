@@ -46,6 +46,7 @@ while [[ $bucle != "salir" ]]; do
 			echo "Asociamos volumen a maquina 2"
 			virsh -c qemu:///session attach-disk debian8-2 /dev/disco/lv1 vda
 
+			echo "Eliminamos regla iptables"
 			#Eliminamos la regla de iptables anterior para que no exista conflicto con la nueva
 			eliminar1=$(iptables -t nat -L --line-number | egrep $ip | cut -d " " -f 1)
 			echo $eliminar1
@@ -59,6 +60,7 @@ while [[ $bucle != "salir" ]]; do
 			#Monta el volumen
 			ssh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
 			
+			echo "Reconfiguracion de regla de iptables"
 			#Añadimos regla IPTable en la maquina Anfitriona para que pueda saber donde mandar la peticion
 			iptables -I FORWARD -d $ip/32 -p tcp --dport 80 -j ACCEPT
 			iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination $ip:80
