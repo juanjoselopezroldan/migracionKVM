@@ -55,7 +55,7 @@ while [[ $bucle != "salir" ]]; do
 			ssh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
 		
 			#Añadimos regla IPTables en la maquina virtual para que acepte peticiones de fuera de su red virutal y devuelva la peticio
-			ssh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.0.1/24 -o eth0 -j MASQUERADE
+			ssh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE
 			
 			#Añadimos regla IPTable en la maquina Anfitriona para que pueda saber donde mandar la peticion
 			iptables -t nat -A PREROUTING -i virbr1 -p tcp --dport 80 -j DNAT --to $ip
@@ -81,7 +81,7 @@ while [[ $bucle != "salir" ]]; do
 		ssh -i /home/kiki/.ssh/cloud.key root@$ip mount /dev/vda /var/www/html/
 		
 		#Añadimos regla IPTables en la maquina virtual para que acepte peticiones de fuera de su red virutal y devuelva la peticion
-		ssh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.0.1/24 -o eth0 -j MASQUERADE
+		ssh -i /home/kiki/.ssh/cloud.key root@$ip iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE
 		
 		#Añadimos regla IPTable en la maquina Anfitriona para que pueda saber donde mandar la peticion
 		iptables -t nat -A PREROUTING -i virbr1 -p tcp --dport 80 -j DNAT --to $ip
