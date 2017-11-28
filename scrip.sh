@@ -17,7 +17,7 @@ while [[ $bucle != "salir" ]]; do
 		control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip cat /proc/meminfo | grep MemAvailable | tr -s " " | cut -d " " -f 2)
 		echo $control
 		#Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM
-		if [[ $control -le "10240" ]];
+		if [[ $control -le "51200" ]];
 		then
 			echo "Maquina 1 colapsada, inicio de maquina 2"
 			#Iniciamos la segunda maquina virtual
@@ -104,7 +104,7 @@ while [[ $bucle != "salir" ]]; do
 	#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
 	control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip cat /proc/meminfo | grep MemAvailable | tr -s " " | cut -d " " -f 2)
 	echo $control
-	if [[ $control -le "10240" ]]; then
+	if [[ $control -le "51200" ]]; then
 		echo "Aumentando Memoria Ram a 2G"
 		virsh setmem debian8-2 2G --live
 		bucle="salir"		
