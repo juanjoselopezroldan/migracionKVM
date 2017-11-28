@@ -23,6 +23,9 @@ while [[ $bucle != "salir" ]]; do
 			#Iniciamos la segunda maquina virtual
 			virsh -c qemu:///system start debian8-2
 
+			#Desmontamos el volumen
+			ssh -i /home/kiki/.ssh/cloud.key root@$ip umount /var/www/html/
+
 			echo "Desasociamos volumen de la maquina 1 y se realiza el apagado"
 			#Desasociamos el volumen de la maquina primera y la apagamos
 			virsh -c qemu:///session detach-disk debian8-1 /dev/disco/lv1
