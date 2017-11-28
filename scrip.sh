@@ -15,7 +15,7 @@ while [[ $bucle != "salir" ]]; do
 
 		#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
 		control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip cat /proc/meminfo | grep MemAvailable | tr -s " " | cut -d " " -f 2)
-		
+		echo $control
 		#Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM
 		if [[ $control -le "10240" ]];
 		then
