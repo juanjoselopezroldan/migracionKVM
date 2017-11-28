@@ -46,6 +46,10 @@ while [[ $bucle != "salir" ]]; do
 			echo "Asociamos volumen a maquina 2"
 			virsh -c qemu:///session attach-disk debian8-2 /dev/disco/lv1 vda
 
+			#Eliminamos la regla de iptables anterior para que no exista conflicto con la nueva
+			eliminar1=$(iptables -t nat -L --line-number | egrep "'$ip'" | cut -d " " -f 1)
+			iptables -t nat -D PREROUTING $eliminar1
+
 			sleep 15
 			echo "Obtiene la ip de la segunda maquina"
 			ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
