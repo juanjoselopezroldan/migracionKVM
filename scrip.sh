@@ -14,7 +14,7 @@ while [[ $bucle != "salir" ]]; do
 		ip=$(virsh net-dhcp-leases nat | tr -s " " | cut -d " " -f 6 | cut -d "/" -f 1 | tail -2)
 
 		#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
-		control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip free -m | egrep Mem | tr -s " " | cut -d " " -f 4)
+		control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip cat /proc/meminfo | grep MemAvailable | tr -s " " | cut -d " " -f 2)
 		
 		#Este IF se cumple si la carga de trabajo de la primera maquina llega al maximo en el uso de RAM
 		if [[ $control -le "10" ]];
@@ -102,7 +102,7 @@ echo "Control sobre la maquina: $ip"
 bucle="seguir"
 while [[ $bucle != "salir" ]]; do
 	#Obtiene la informacion de la ocupacion de procesamiento en la maquina virtual
-	control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip  free -m | egrep Mem | tr -s " " | cut -d " " -f 4 )
+	control=$(ssh -i /home/kiki/.ssh/cloud.key root@$ip cat /proc/meminfo | grep MemAvailable | tr -s " " | cut -d " " -f 2)
 	echo $control
 	if [[ $control -le "60" ]]; then
 		echo "Aumentando Memoria Ram a 2G"
