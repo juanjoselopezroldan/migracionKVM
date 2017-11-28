@@ -49,7 +49,6 @@ while [[ $bucle != "salir" ]]; do
 			echo "Eliminamos regla iptables"
 			#Eliminamos la regla de iptables anterior para que no exista conflicto con la nueva
 			eliminar1=$(iptables -t nat -L --line-number | egrep $ip | cut -d " " -f 1)
-			echo $eliminar1
 			iptables -t nat -D PREROUTING $eliminar1
 
 			sleep 15
